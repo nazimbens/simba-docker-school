@@ -6,11 +6,7 @@ Dans ce TP, vous allez apprendre à créer une image Docker personnalisée conte
 
 ## Étape 1 : Création d'une Application Python Simple
 
-#### 1.1. Créez un dossier nommé `python-app` pour votre projet :
-
-`mkdir python-app cd python-app`
-
-#### 1.2. Dans ce dossier, créez un fichier Python nommé `app.py` avec le contenu suivant :
+#### Créez un fichier Python nommé `app.py` avec le contenu suivant :
 
 ``` 
 #app.py 
