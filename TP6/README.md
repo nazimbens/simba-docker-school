@@ -50,5 +50,42 @@ On va donc voir apparaître notre point de montage sur le Host (en local). Véri
 
 `sudo ls <chemin>`
 
-Afficher le contenu du fichier
+Afficher le contenu du fichier 
+
+`sudo cat <chemin>`
+
+# Modification du fichier 
+
+Dans le terminal de votre serveur Nginx, modifiez le fichier index.html 
+
+`echo toto > /usr/share/nginx/html/index.html`
+
+Vérifiez ensuite que la modification a été faite en local.
+
+`sudo cat <chemin>`
+
+On verra que la modification a bien été prise en compte ! 
+
+# Attribuer ce volume à un nouveau container
+
+`docker run -ti --name c2 --rm -v mynginx:/data/ debian:latest bash`
+
+Vérifier que le fichier index.html se trouve bien ici. 
+
+`ls /data/`
+
+Afficher le contenu du fichier index.html
+
+`cat /data/index.html`
+
+On retrouve bien toto ! Et si on le modifiait 🙃
+
+`echo titi > /data/index.html`
+
+Si on souhaite supprimer il faut stopper et supprimer le container en utilisation 
+
+`docker volume rm mynginx`
+
+Même si je supprime tous les container au niveau du HOST, le volume est persistant et il reste intacte en local. 
+
 
