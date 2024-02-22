@@ -1,5 +1,3 @@
-# TP6 - Docker Volumes
-
 # Lister les volumes 
 
 `docker volume ls`
@@ -26,7 +24,7 @@ Pour utiliser ce volume, on va utiliser la ligne de commande docker pour exécut
 
 Pour notre exemple on va utiliser `mynginx`
 
-`docker run -d --name c1 -v mynginx:/user/share/nginx/html/ nginx:latest`
+`docker run -d --name c1 -v mynginx:/usr/share/nginx/html/ nginx:latest`
 
 # Vérifier que le container existe 
 
@@ -46,9 +44,54 @@ On se retrouve maintenant à l'intérieur d'un bash comme si on était à l'int�
 
 `docker volume inspect mynginx`
 
-On va donc voir apparaître notre point de montage sur le Host (en local). Vérifions donc que ce point de montage est bien raccordé et possède les mêmes fichiers que notre container. 
+On va donc voir apparaître notre point de montage sur le **Host (en local)**. Vérifions donc que ce point de montage est bien raccordé et possède les mêmes fichiers que notre container.
 
-`sudo ls <chemin>`
+Aller dans Docker Hub > Volumes > mynginx 
 
-Afficher le contenu du fichier
+ou 
 
+Lancer les commades suivantes : 
+
+Permet d'accéder aux volumes depuis un container car sur certains OS on peut rencontrer des problèmes.
+
+`docker run -it --privileged --pid=host debian nsenter -t 1 -m -u -n -i sh`
+
+`ls <chemin>`
+
+Afficher le contenu du fichier 
+
+`cat <chemin>`
+
+# Modification du fichier 
+
+Dans le terminal de votre serveur Nginx, modifiez le fichier index.html 
+
+`echo toto > /usr/share/nginx/html/index.html`
+
+Vérifiez ensuite que la modification a été faite en local.
+
+`sudo cat <chemin>`
+
+On verra que la modification a bien été prise en compte ! 
+
+# Attribuer ce volume à un nouveau container
+
+`docker run -ti --name c2 --rm -v mynginx:/data/ debian:latest bash`
+
+Vérifier que le fichier index.html se trouve bien ici. 
+
+`ls /data/`
+
+Afficher le contenu du fichier index.html
+
+`cat /data/index.html`
+
+On retrouve bien toto ! Et si on le modifiait 🙃
+
+`echo titi > /data/index.html`
+
+Si on souhaite supprimer il faut stopper et supprimer le container en utilisation 
+
+`docker volume rm mynginx`
+
+Même si je supprime tous les container au niveau du HOST, le volume est persistant et il reste intacte en local. 
