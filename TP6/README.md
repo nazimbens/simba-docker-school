@@ -26,7 +26,7 @@ Pour utiliser ce volume, on va utiliser la ligne de commande docker pour exécut
 
 Pour notre exemple on va utiliser `mynginx`
 
-`docker run -d --name c1 -v mynginx:/user/share/nginx/html/ nginx:latest`
+`docker run -d --name c1 -v mynginx:/usr/share/nginx/html/ nginx:latest`
 
 # Vérifier que le container existe 
 
