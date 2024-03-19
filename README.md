@@ -1,4 +1,4 @@
-# simba-docker-school
+# Docker-school
 
 ## Accéder au TP 
 
